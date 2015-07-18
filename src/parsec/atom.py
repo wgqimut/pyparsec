@@ -14,7 +14,7 @@ def eq(data):
         if re == data:
             return re
         else:
-            raise ParsecError(state, "Expect {0} but got {1}".format(data, re))
+            raise ParsecError(st, "Expect {0} but got {1}".format(data, re))
     return call
 
 def ne(data):

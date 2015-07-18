@@ -56,6 +56,19 @@ class TestAtom(unittest.TestCase):
             re = n(st)
             self.assertEqual(re, st.data[idx])
 
+    def test_pack(self):
+        st = BasicState(simple)
+        p = pack("z")
+        for i in range(1, len(simple)):
+            idx = st.index
+            re = p(st)
+            self.assertEqual("z", re)
+
+    def test_fail(self):
+        st = BasicState(simple)
+        p = fail("z")
+        with self.assertRaises(error.ParsecError):
+            p(st)
 
 if __name__ == '__main__':
     unittest.main()

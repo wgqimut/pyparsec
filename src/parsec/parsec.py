@@ -4,20 +4,20 @@
 class Parsec(object):
     def __init__(self, parsec):
         self.parsec = parsec
-    def __call__(self, state):
-        return self.parsec(state)
+    def __call__(self, st):
+        return self.parsec(st)
     def bind(self, continuation):
-        def bind(state):
-            return continuation(self.parsec(state))
-        return Monad(bind)
+        def bind(st):
+            return continuation(self.parsec(st))
+        return Parsec(bind)
     def then(self, p):
-        def then(state):
-            self.parsec(state)
-            return p(state)
-        return Monad(then)
+        def then(st):
+            self.parsec(st)
+            return p(st)
+        return Parsec(then)
     def over(self, p):
-        def over(state):
-            re = self.parsec(state)
-            p(state)
+        def over(st):
+            re = self.parsec(st)
+            p(st)
             return re
-        return Monad(over)
+        return Parsec(over)
